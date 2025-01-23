@@ -490,17 +490,19 @@ elif st.session_state.page == "welcome":
             # Display the step number and title
             container3.markdown(
                 f"""
-                <div style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; font-weight: 700; margin-left: 2px; margin-bottom: 15px;">Pitstop {i}: {module['Module_Title']} - {module['intervention_type']}</div>
+                <div style="font-family: 'Source Sans Pro', sans-serif; font-size:20px; font-weight: 700; margin-left: 2px; margin-bottom: 15px;">Pitstop {i}: {module['Module_Title']} - ( {module['intervention_type']} )</div>
                 """,
                 unsafe_allow_html=True,
             )
+
+            # Create a unique key per expander to track the success message
             success_key = f"success_message_{i}"
 
-            # Initialize the success state for this button
+            # Initialize the success state for this button if not already in session_state
             if success_key not in st.session_state:
                 st.session_state[success_key] = False
 
-            # Create an expander for the step
+            # Create an expander for the current module
             with container3.expander(f"Create {module['intervention_type']}"):
                 st.write(f"**Intervention Type 🛠️:** {module['intervention_type']}")
                 st.write(f"**Content 📚 :** {module['Content']}")
@@ -513,23 +515,25 @@ elif st.session_state.page == "welcome":
                     height: 50px;
                     padding: 10px;
                     border: 2px solid yellow;
-                    
+
                     margin-top: -15px;
                     color: white; /* Text color */
                 }
-                                        /* Hover effect */
+                /* Hover effect */
                 .element-container:has(#button-after) + div button:hover {
                     background-color: yellow; /* Darker yellow on hover */
-                                        color: black;
+                    color: black;
                 }
                 </style>
-            """, unsafe_allow_html=True)
+                """, unsafe_allow_html=True)
 
                 st.markdown('<span id="button-after"></span>', unsafe_allow_html=True)
+
                 # "Create" button inside the expander
                 if st.button(f"Create {module['intervention_type']}", key=f"create_button_{i}"):
                     st.session_state[success_key] = True  
 
+                # Check if the button has been clicked and display appropriate results
                 if st.session_state[success_key]:
                     if module['intervention_type']=='On-the-job training':
                         response=call_ojts(str(module['Module_Title']))
@@ -541,6 +545,7 @@ elif st.session_state.page == "welcome":
                         st.success(f"The {module['intervention_type']} has been successfully created. You can view it here:  https://qa.disprz.com/#!/t/trainerprogramsview/microExperiences/{ojts_no}")
                     else:
                         st.warning(f"Unable to create {module['intervention_type']} at the moment. Please try again later.")
+                    st.session_state[success_key] = False
 
 
 
