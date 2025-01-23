@@ -123,7 +123,7 @@ def get_access_token():
         raise Exception(f"Failed to get access token: {response.status_code} {response.text}")
 
 # Function to call OJTs using POST
-def call_ojts(title, objective):
+def call_ojts(title):
     url = 'https://appsvc-qa.disprz.com/ojtservice/v1/ojts'
     headers = {
         'Access-Token': 'yRxeW0VB3uvyFTFq+eGoqXnArMq+P8SvSH+RDNwv0CSbxHg8k3dFiNR/GwS+CfeZhHQLFxXVrL6LVRXd/XaBSMivzZbxYDU8wVJhHa8vpXZc6wktKiCk5O0d/QeYiQLAgQbswE+LYSBzlBoj665C0ZIeEk9waC/TZ49OcKr13stGyYtgEKL9KSNN52+zfyNeAP7qMHVboWi8T9PH+g7W86951RYA0aW+IgOrsev3t26PmEtAu0ZtgflIx1i2o2PADJ4hjuzPv7FSjCSLrZlSyoHSuqjjK+2TUh26S1+IQYWf23K5BVhngFysRPaiHduROM5wymweNuTcDsg32hNJxi6TQ1GktraKR+o792whY+InQhCdpYp6MR395CjeMuIm',
@@ -530,16 +530,17 @@ elif st.session_state.page == "welcome":
                 if st.button(f"Create {module['intervention_type']}", key=f"create_button_{i}"):
                     st.session_state[success_key] = True  
 
-                if st.session_state[success_key] and module['intervention_type']=='On-the-job training':
-                    response=call_ojts(str(module['Module_Title']))
-                    ojts_no=int(response)
-                    checklists = get_completion1(str(module['Content']))
-                    final_checkpoint = json.loads(checklists)
-                    final_load_checkpoint = final_checkpoint['checkpointbasedquestions']
-                    create_checkpoints(ojts_no, final_load_checkpoint)
-                    st.success(f"The {module['intervention_type']} has been successfully created. You can view it here:  https://qa.disprz.com/#!/t/trainerprogramsview/microExperiences/{ojts_no}")
-                else:
-                    st.warning(f"Unable to create {module['intervention_type']} at the moment. Please try again later.")
+                if st.session_state[success_key]:
+                    if module['intervention_type']=='On-the-job training':
+                        response=call_ojts(str(module['Module_Title']))
+                        ojts_no=int(response)
+                        checklists = get_completion1(str(module['Content']))
+                        final_checkpoint = json.loads(checklists)
+                        final_load_checkpoint = final_checkpoint['checkpointbasedquestions']
+                        create_checkpoints(ojts_no, final_load_checkpoint)
+                        st.success(f"The {module['intervention_type']} has been successfully created. You can view it here:  https://qa.disprz.com/#!/t/trainerprogramsview/microExperiences/{ojts_no}")
+                    else:
+                        st.warning(f"Unable to create {module['intervention_type']} at the moment. Please try again later.")
 
 
 
