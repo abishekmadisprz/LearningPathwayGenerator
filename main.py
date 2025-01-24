@@ -174,7 +174,7 @@ def call_ojts(title):
 def create_checkpoints(ojtid, checkpoint_data):
     url = 'https://appsvc-qa.disprz.com/ojtservice/v1/ojts/checkpoints'
     headers = {
-        'Access-Token': 'yRxeW0VB3uvyFTFq+eGoqXnArMq+P8SvSH+RDNwv0CSbxHg8k3dFiNR/GwS+CfeZhHQLFxXVrL6LVRXd/XaBSMivzZbxYDU8wVJhHa8vpXZc6wktKiCk5O0d/QeYiQLAgQbswE+LYSBzlBoj665C0ZIeEk9waC/TZ49OcKr13stGyYtgEKL9KSNN52+zfyNeAP7qMHVboWi8T9PH+g7W86951RYA0aW+IgOrsev3t26PmEtAu0ZtgflIx1i2o2PADJ4hjuzPv7FSjCSLrZlSyoHSuqjjK+2TUh26S1+IQYWf23K5BVhngFysRPaiHduROM5wymweNuTcDsg32hNJxi6TQ1GktraKR+o792whY+InQhCdpYp6MR395CjeMuIm',  # Replace with your actual token
+        'Access-Token': 'yRxeW0VB3uvyFTFq+eGoqXnArMq+P8Sv9o3Ad7Vz+VIk4w5EoB83z/H399BjU7B8hHQLFxXVrL6LVRXd/XaBSMivzZbxYDU8wVJhHa8vpXZc6wktKiCk5O0d/QeYiQLAgQbswE+LYSBzlBoj665C0ZIeEk9waC/TZ49OcKr13stGyYtgEKL9KSNN52+zfyNeAP7qMHVboWi8T9PH+g7W86951RYA0aW+IgOrsev3t26PmEtAu0ZtgflIx1i2o2PADJ4hjuzPv7GM1jfwt2npK0Dv9+YDIylwUh26S1+IQYWf23K5BVhngFysRPaiHduROM5wymweNuTcDsg32hNJxi6TQ1GktraKR+o792whY+InQhCdpYp6MR395CjeMuIm',
         'Content-Type': 'application/json'
     }
 
